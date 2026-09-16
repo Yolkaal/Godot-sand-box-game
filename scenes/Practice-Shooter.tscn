@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dbq2nr6lp11lx"]
+
+[ext_resource type="PackedScene" uid="uid://k065rxqtim8f" path="res://models/platform-large-grass.glb" id="1_sxuwi"]
+[ext_resource type="PackedScene" uid="uid://bwgwd5ue8i2bt" path="res://models/platform.glb" id="2_7d3aq"]
+[ext_resource type="PackedScene" uid="uid://c743irj356lax" path="res://models/wall-high.glb" id="3_vxkdq"]
+[ext_resource type="PackedScene" uid="uid://lde2xq3vq635" path="res://models/enemy-flying.glb" id="4_tmsfp"]
+[ext_resource type="PackedScene" uid="uid://das5fosq6auoe" path="res://models/grass-small.glb" id="5_b6d0h"]
+[ext_resource type="PackedScene" uid="uid://beaer7x07yif6" path="res://models/grass.glb" id="6_7g0ph"]
+[ext_resource type="PackedScene" uid="uid://x08pt5dvke58" path="res://models/wall-low.glb" id="7_eff54"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mo66v"]
+size = Vector3(2.9938965, 0.5673828, 1)
+
+[node name="PracticeShooter" type="Node3D" unique_id=191190742]
+
+[node name="platform-large-grass" parent="." unique_id=722537732 instance=ExtResource("1_sxuwi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02361846, 0, -0.49370313)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="platform-large-grass" unique_id=1217667163]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="platform-large-grass/StaticBody3D" unique_id=12647549]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99694824, 0.2163086, 0)
+shape = SubResource("BoxShape3D_mo66v")
+
+[node name="platform-falling" parent="." unique_id=653062647 instance=ExtResource("2_7d3aq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.455099, 0, 2.2320564)
+
+[node name="wall-high" parent="." unique_id=1564270579 instance=ExtResource("3_vxkdq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5384423, 0.4808331, -1.8359885)
+
+[node name="enemy-flying" parent="." unique_id=1956411807 instance=ExtResource("4_tmsfp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74696827, 0.97214234, -5.8418355)
+
+[node name="grass-small" parent="." unique_id=83725923 instance=ExtResource("5_b6d0h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.52401984, 0.4999324, 0.44075346)
+
+[node name="grass" parent="." unique_id=269856834 instance=ExtResource("6_7g0ph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8697604, 0.51467466, -1.8237121)
+
+[node name="wall-low" parent="." unique_id=690917426 instance=ExtResource("7_eff54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33925182, 0.49116892, 1.1479363)
