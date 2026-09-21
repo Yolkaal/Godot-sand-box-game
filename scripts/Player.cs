@@ -21,9 +21,6 @@ public partial class Player : CharacterBody3D
 
     #endregion
 
-
-
-
     #region Private fields
 
     private Vector3 _targetVelocity = Vector3.Zero;
@@ -34,7 +31,10 @@ public partial class Player : CharacterBody3D
     #endregion
 
 
-    public override void _Input(InputEvent @event)
+
+
+    // # Perform Camera Rotation
+    private void PerformRotation(InputEvent @event)
     {
         if (@event is InputEventMouseMotion mouseMotion)
         {
@@ -46,17 +46,18 @@ public partial class Player : CharacterBody3D
         }
     }
 
-
-    public override void _Ready()
+    // # Perform Movement initialisation
+    private void InitializeCamera()
     {
-        GD.Print("Player initialized");
         _yaw = GetNode<Node3D>("Pivot");
         _camera = GetNode<Camera3D>("Pivot/Camera3D");
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        GD.Print("Player Camera initialized");
     }
 
-    public override void _PhysicsProcess(double delta)
+    // # Get Player Movement Input
+    private Vector3 GetInput()
     {
         var direction = Vector3.Zero;
 
@@ -82,6 +83,14 @@ public partial class Player : CharacterBody3D
             direction = Transform.Basis * direction.Normalized();
         }
 
+        return direction;
+    }
+
+    // # Perform Player Movement
+    private void PerformMovement(double delta)
+    {
+        var direction = GetInput();
+
         _targetVelocity.X = direction.X * MovementSpeed;
         _targetVelocity.Z = direction.Z * MovementSpeed;
 
@@ -95,4 +104,23 @@ public partial class Player : CharacterBody3D
     }
 
 
+
+
+
+
+    // ? MAIN PROGRAM
+    public override void _Input(InputEvent @event)
+    {
+        PerformRotation(@event);
+    }
+
+    public override void _Ready()
+    {
+        InitializeCamera();
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        PerformMovement(delta);
+    }
 }
