@@ -15,7 +15,7 @@ public partial class Player : CharacterBody3D
     public int MovementSpeed { get; set; } = 5;
 
     [Export]
-    public int FallAcceleration { get; set; } = 35;
+    public int FallAcceleration { get; set; } = 7;
 
     [Export]
     public float MouseSensitivity = 0.002f;
@@ -118,7 +118,7 @@ public partial class Player : CharacterBody3D
 
     private void InitializeAbilities()
     {
-        _abilities.Add(new JumpAbility(jumpVelocity: 10f, maxJumps: 1));
+        _abilities.Add(new JumpAbility(jumpVelocity: 3f, maxJumps: 1));
     }
 
 
