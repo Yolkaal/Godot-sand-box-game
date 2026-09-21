@@ -21,9 +21,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02361846, 0, -0.49370313)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011047363, 0.25628662, 0.019104004)
 shape = SubResource("BoxShape3D_mo66v")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1608991943]
-transform = Transform3D(1, 0, 0, 0, 0.68571424, 0.7278709, 0, -0.7278709, 0.68571424, 0, 2.6515462, 1.146419)
-
 [node name="Player" type="CharacterBody3D" parent="." unique_id=1781988865]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.0185828, 0)
 script = ExtResource("7_sxuwi")
@@ -34,6 +31,7 @@ mesh = SubResource("CapsuleMesh_8r7mx")
 skeleton = NodePath("../Pivot")
 
 [node name="Pivot" type="Node3D" parent="Player" unique_id=871633697]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.55304265, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/Pivot" unique_id=326862474]
 

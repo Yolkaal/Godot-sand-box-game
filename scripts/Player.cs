@@ -6,7 +6,9 @@ using System;
 public partial class Player : CharacterBody3D
 {
 
-    # region Exported properties
+
+
+    #region Exported properties
 
     [Export]
     public int MovementSpeed { get; set; } = 5;
@@ -14,13 +16,23 @@ public partial class Player : CharacterBody3D
     [Export]
     public int FallAcceleration { get; set; } = 75;
 
+    [Export]
+    public float mouse_sensitivity = 0.002f;
+
     #endregion
+
+
+
 
     #region Private fields
 
     private Vector3 _targetVelocity = Vector3.Zero;
 
     #endregion
+
+
+
+
 
     public override void _Ready()
     {
@@ -33,11 +45,11 @@ public partial class Player : CharacterBody3D
 
         if (Input.IsActionPressed("move_forward"))
         {
-            direction.Z += 1.0f;
+            direction.Z -= 1.0f;
         }
         if (Input.IsActionPressed("move_back"))
         {
-            direction.Z -= 1.0f;
+            direction.Z += 1.0f;
         }
         if (Input.IsActionPressed("move_left"))
         {
@@ -51,7 +63,6 @@ public partial class Player : CharacterBody3D
         if (direction != Vector3.Zero)
         {
             direction = direction.Normalized();
-            GetNode<Node3D>("Pivot").Basis = Basis.LookingAt(direction);
         }
 
         _targetVelocity.X = direction.X * MovementSpeed;
@@ -65,4 +76,6 @@ public partial class Player : CharacterBody3D
         Velocity = _targetVelocity;
         MoveAndSlide();
     }
+
+
 }
