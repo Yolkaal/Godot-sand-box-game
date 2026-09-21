@@ -2,6 +2,7 @@ namespace PlayerMovement;
 
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody3D
 {
@@ -14,7 +15,7 @@ public partial class Player : CharacterBody3D
     public int MovementSpeed { get; set; } = 5;
 
     [Export]
-    public int FallAcceleration { get; set; } = 75;
+    public int FallAcceleration { get; set; } = 7;
 
     [Export]
     public float MouseSensitivity = 0.002f;
@@ -27,6 +28,7 @@ public partial class Player : CharacterBody3D
     private float _pitch = 0f;
     private Node3D _camera;
     private Node3D _yaw;
+    private List<IMovementAbility> _abilities = [];
 
     #endregion
 
@@ -91,19 +93,33 @@ public partial class Player : CharacterBody3D
     {
         var direction = GetInput();
 
+
+
         _targetVelocity.X = direction.X * MovementSpeed;
         _targetVelocity.Z = direction.Z * MovementSpeed;
 
-        if (!IsOnFloor())
+        if (IsOnFloor() && _targetVelocity.Y < 0)
+            {
+                _targetVelocity.Y = -0.1f;
+            }
+            else if (!IsOnFloor())
+            {
+                _targetVelocity.Y -= FallAcceleration * (float)delta;
+            }
+
+        foreach (var ability in _abilities)
         {
-            _targetVelocity.Y -= FallAcceleration * (float)delta;
+            ability.PhysicsUpdate(delta, ref _targetVelocity, this);
         }
 
         Velocity = _targetVelocity;
         MoveAndSlide();
     }
 
-
+    private void InitializeAbilities()
+    {
+        _abilities.Add(new JumpAbility(jumpVelocity: 3f, maxJumps: 1));
+    }
 
 
 
@@ -117,6 +133,7 @@ public partial class Player : CharacterBody3D
     public override void _Ready()
     {
         InitializeCamera();
+        InitializeAbilities();
     }
 
     public override void _PhysicsProcess(double delta)
